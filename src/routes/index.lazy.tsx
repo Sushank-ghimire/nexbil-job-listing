@@ -1,10 +1,12 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import useTitle from "../hooks/useTitle";
 
 export const Route = createLazyFileRoute("/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  useTitle({ title: "Nexbil Job Portal" });
   return (
     <section className="bg-primary text-textPrimary flex flex-col">
       {/* Hero Section */}

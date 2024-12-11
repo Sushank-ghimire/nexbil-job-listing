@@ -1,5 +1,5 @@
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { Navbar, NotFound } from "../components/Export";
+import { Footer, Navbar, NotFound } from "../components/Export";
 import MainLayout from "../Layouts/MainLayout";
 
 export const Route = createRootRoute({
@@ -13,6 +13,7 @@ function RootComponent() {
       <Navbar />
       <MainLayout>
         <Outlet />
+        <Footer />
       </MainLayout>
     </main>
   );
