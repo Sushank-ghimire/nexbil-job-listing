@@ -25,13 +25,18 @@ interface JobVars {
   fetchJobData: () => Promise<void>;
   jobData: JobType[];
   faviouriteJobs: JobType[];
+  getFaviouriteJobs: () => Promise<void>;
+  addToFaviouriteJob: (job: JobType) => void;
+  removeFromFaviouriteJob: (job: JobType) => void;
+  message: string;
 }
 
-const useJobStore = create<JobVars>((set) => ({
+const useJobStore = create<JobVars>((set, get) => ({
   isLoading: null,
   jobData: [],
   faviouriteJobs: [],
   error: null,
+  message: "",
   fetchJobData: async () => {
     try {
       set({ isLoading: true });
@@ -46,6 +51,41 @@ const useJobStore = create<JobVars>((set) => ({
       set({ error: "Error occured while fetching job data." });
     } finally {
       set({ isLoading: false });
+    }
+  },
+  
+  getFaviouriteJobs: async () => {
+    try {
+      set({ isLoading: true });
+    } catch (error) {
+      if (error instanceof Error) {
+        set({ error: error.message });
+      }
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  addToFaviouriteJob: (job) => {
+    try {
+      set({ faviouriteJobs: [...get().faviouriteJobs, job] });
+    } catch (error) {
+      if (error instanceof Error) {
+        set({ message: error.message });
+      }
+    }
+  },
+
+  removeFromFaviouriteJob: (jb) => {
+    try {
+      const filteredJobs = get().faviouriteJobs.filter(
+        (job) => job.id !== jb.id
+      );
+      set({ faviouriteJobs: [...filteredJobs] });
+    } catch (error) {
+      if (error instanceof Error) {
+        set({ message: error.message });
+      }
     }
   },
 }));
