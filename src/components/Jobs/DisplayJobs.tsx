@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import useJobStore, { JobType } from "../../store/JobsStore";
 import { FaHeart } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 interface DisplayJobsProps {
   jobs: JobType;
@@ -51,8 +52,8 @@ const DisplayJobs = ({ jobs }: DisplayJobsProps) => {
               ? "Remove from faviourite"
               : "Add to Faviourite"}
           </span>
-          <span className="text-red-600 font-medium">
-            <FaHeart />
+          <span className="text-red-600 font-medium block">
+            {checkIsFavourite(jobs.id) ? <MdDelete /> : <FaHeart />}
           </span>
         </button>
       </div>

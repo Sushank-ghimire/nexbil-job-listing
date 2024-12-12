@@ -51,6 +51,19 @@ const ApplyForm = () => {
 
     // Simulating a form submission (replace with actual API call)
     setTimeout(() => {
+      const formData = {
+        name: "",
+        email: "",
+        resume: null,
+        coverLetter: null,
+      };
+      setFormData(formData);
+      // Reset file inputs
+      const fileInputs =
+        document.querySelectorAll<HTMLInputElement>('input[type="file"]');
+      fileInputs.forEach((input) => {
+        input.value = ""; // Clears the file input
+      });
       setSubmissionStatus("Your application has been submitted successfully!");
       setIsSubmitting(false);
     }, 2000);
