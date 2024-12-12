@@ -11,11 +11,11 @@ export const Route = createLazyFileRoute("/favourite/")({
 function RouteComponent() {
   useTitle({ title: "Your faviourite jobs" });
 
-  const { fetchJobData, faviouriteJobs, jobData, isLoading } = useJobStore();
+  const { fetchJobData, faviouriteJobs, isLoading, getFaviouriteJobs } = useJobStore();
 
   // Fetch The job if there is no job data in the store
   useEffect(() => {
-    if (jobData.length === 0) fetchJobData();
+    getFaviouriteJobs();
   }, [fetchJobData]);
 
   return (

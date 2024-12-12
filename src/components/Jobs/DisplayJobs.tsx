@@ -1,11 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { JobType } from "../../store/JobsStore";
+import useJobStore, { JobType } from "../../store/JobsStore";
+import { FaHeart } from "react-icons/fa";
 
 interface DisplayJobsProps {
   jobs: JobType;
 }
 
 const DisplayJobs = ({ jobs }: DisplayJobsProps) => {
+  const { addToFaviouriteJob, faviouriteJobs, removeFromFaviouriteJob } =
+    useJobStore();
+
+  const checkIsFavourite = (jobId: string): boolean => {
+    const isFaviourite = faviouriteJobs.find((job) => job.id === jobId);
+    return isFaviourite?.id ? true : false;
+  };
   return (
     <div
       key={jobs.id}
@@ -21,12 +29,33 @@ const DisplayJobs = ({ jobs }: DisplayJobsProps) => {
       <p className="text-gray-600 mb-4">
         Deadline: {jobs.application_deadline}
       </p>
-      <Link
-        to={`/jobs/${jobs.id}`}
-        className="inline-block bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
-      >
-        Apply Now
-      </Link>
+      <div className="flex w-full justify-between items-center">
+        <Link
+          to={`/jobs/${jobs.id}`}
+          className="inline-block bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+        >
+          Apply Now
+        </Link>
+        <button
+          onClick={() => {
+            if (checkIsFavourite(jobs.id)) {
+              removeFromFaviouriteJob(jobs);
+            } else {
+              addToFaviouriteJob(jobs);
+            }
+          }}
+          className="flex justify-between px-3 py-2 transition-colors hover:bg-pink-500 bg-pink-300 text-darkPrimary hover:text-darkTextPrimary items-center gap-1 rounded-sm"
+        >
+          <span className="hidden md:block">
+            {checkIsFavourite(jobs.id)
+              ? "Remove from faviourite"
+              : "Add to Faviourite"}
+          </span>
+          <span className="text-red-600 font-medium">
+            <FaHeart />
+          </span>
+        </button>
+      </div>
     </div>
   );
 };

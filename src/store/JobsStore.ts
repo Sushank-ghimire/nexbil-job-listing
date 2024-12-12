@@ -53,10 +53,13 @@ const useJobStore = create<JobVars>((set, get) => ({
       set({ isLoading: false });
     }
   },
-  
+
   getFaviouriteJobs: async () => {
     try {
       set({ isLoading: true });
+      const storedJobs = localStorage.getItem("favouriteJobs");
+      const parsedJobs = storedJobs ? JSON.parse(storedJobs) : [];
+      set({ faviouriteJobs: parsedJobs });
     } catch (error) {
       if (error instanceof Error) {
         set({ error: error.message });
@@ -68,7 +71,10 @@ const useJobStore = create<JobVars>((set, get) => ({
 
   addToFaviouriteJob: (job) => {
     try {
-      set({ faviouriteJobs: [...get().faviouriteJobs, job] });
+      const currentJobs = get().faviouriteJobs;
+      const updatedJobs = [...currentJobs, job];
+      localStorage.setItem("favouriteJobs", JSON.stringify(updatedJobs));
+      set({ faviouriteJobs: updatedJobs, message: "Job added to favourites!" });
     } catch (error) {
       if (error instanceof Error) {
         set({ message: error.message });
@@ -78,10 +84,13 @@ const useJobStore = create<JobVars>((set, get) => ({
 
   removeFromFaviouriteJob: (jb) => {
     try {
-      const filteredJobs = get().faviouriteJobs.filter(
-        (job) => job.id !== jb.id
-      );
-      set({ faviouriteJobs: [...filteredJobs] });
+      const currentJobs = get().faviouriteJobs;
+      const filteredJobs = currentJobs.filter((job) => job.id !== jb.id);
+      localStorage.setItem("favouriteJobs", JSON.stringify(filteredJobs));
+      set({
+        faviouriteJobs: filteredJobs,
+        message: "Job removed from favourites!",
+      });
     } catch (error) {
       if (error instanceof Error) {
         set({ message: error.message });
