@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export const Route = createRootRoute({
   component: RootComponent,
-  notFoundComponent: NotFound,
+  notFoundComponent: () => <NotFound />,
 });
 
 function RootComponent() {
