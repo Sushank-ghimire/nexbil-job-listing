@@ -2,7 +2,7 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaLink } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="text-white mt-8 mx-auto w-[90vw] md:container">
+    <footer className="text-white mt-8 mx-auto w-full">
       <div className="w-full mx-auto py-4  bg-gray-800 text-center">
         <div className="mb-6">
           <h2 className="text-2xl font-semibold">Get in Touch</h2>
@@ -11,7 +11,7 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="flex justify-center gap-6 mb-6">
+        <div className="flex flex-wrap justify-center gap-6 mb-6">
           <a
             href="mailto:ghimiresushank64@gmail.com"
             target="_blank"

@@ -1,4 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
+import { FaHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const location = useLocation();
@@ -15,7 +16,7 @@ const Navbar = () => {
           Nexbil Job Portal
         </Link>
       </h1>
-      <div className="flex justify-between gap-2 md:gap-4 font-medium">
+      <div className="flex justify-between gap-3 md:gap-5 font-medium">
         <Link
           to="/about"
           className={`cursor-pointer active:font-normal hover:text-darkSecondary relative hidden transition-all group md:block ${checkActiveStatus(location.pathname, "/about")}`}
@@ -32,9 +33,12 @@ const Navbar = () => {
         </Link>
         <Link
           to="/favourite"
-          className={`cursor-pointer hover:text-darkSecondary relative transition-all md:block hidden group ${checkActiveStatus(location.pathname, "/favourite")}`}
+          className={`cursor-pointer hover:text-darkSecondary relative transition-all flex items-center justify-center group ${checkActiveStatus(location.pathname, "/favourite")}`}
         >
-          Favourites
+          <span className="hidden md:block">Favourites</span>
+          <span className="md:hidden block text-xl">
+            <FaHeart />
+          </span>
           <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-black transition-all group-hover:w-full"></span>
         </Link>
         <Link
