@@ -1,10 +1,18 @@
 import { useState } from "react";
 
+interface FormDataTypes {
+  name: string;
+  email: string;
+  resume: File | null;
+  coverLetter: File | null;
+}
+
 const ApplyForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataTypes>({
     name: "",
     email: "",
     resume: null,
+    coverLetter: null,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,7 +31,7 @@ const ApplyForm = () => {
 
   // Handle file input
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev: any) => ({
+    setFormData((prev: FormDataTypes) => ({
       ...prev,
       resume: e.target.files ? e.target.files[0] : null,
     }));
@@ -110,6 +118,24 @@ const ApplyForm = () => {
           name="resume"
           accept=".pdf, .doc, .docx"
           onChange={handleFileChange}
+          required
+          className="w-full p-3 border border-gray-300 rounded-md"
+        />
+      </div>
+
+      {/* Cover Letter Field */}
+      <div>
+        <label
+          htmlFor="cover"
+          className="block text-sm font-semibold text-gray-700 mb-2"
+        >
+          Upload Cover Letter
+        </label>
+        <input
+          type="file"
+          id="cover"
+          name="cover"
+          accept=".pdf, .doc, .docx"
           required
           className="w-full p-3 border border-gray-300 rounded-md"
         />
